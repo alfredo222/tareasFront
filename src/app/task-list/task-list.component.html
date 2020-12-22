@@ -1,0 +1,144 @@
+<!-- Image and text -->
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" (click)="ngOnInit()">
+	<!--<img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> -->
+	<h2 class="text-center" >Aplicacion de tareas</h2>
+  </a>
+</nav>
+
+<!--
+<form class="ml-5 mt-2">
+  <label for="fname">Descripcion de la nueva tarea:</label><br>
+  <input  type="text" id="fname" name="fname" #descripcion><br>
+  <input type="submit" value="Submit">
+  <button (click) ="nuevaTarea(descripcion.value)" type="button" class="btn btn-primary btn-lg btn-block mb-2" href="#">
+			Nueva tarea
+		</button>
+</form> -->
+
+<!--PARA LISTAR LOS ESTADOS POR LOS QUE FILTRAR-->
+<h6 class="mt-2 ml-5">Filtrar tareas</h6>
+<div class="btn-group mt-2 ml-5 mb-1" role="group" aria-label="Basic example">
+	<button type="button" class="btn btn-success active" (click)="filtrarTareas('Completada')">Completada</button>
+	<button type="button" class="btn btn-danger" (click)="filtrarTareas('Pendiente')">Pendiente</button>
+	<button type="button" class="btn btn-warning" (click)="filtrarTareas('InProgress')">InProgress</button>
+</div>
+
+<div class="dropdown dropright show mt-1 ml-5 mb-5">
+  <a class="btn btn-info dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Filtrar tareas
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" (click) = "filtrarTareas()">Completada</a>
+    <a class="dropdown-item" (click) = "filtrarTareas()">Pendiente</a>
+    <a class="dropdown-item" (click) = "filtrarTareas()">InProgress</a>
+  </div>
+</div>
+<!--FIN PARA LISTAR LOS ESTADOS POR LOS QUE FILTRAR-->
+
+
+<!--PARA RECOGGER LA DESCRIPCION Y EL ESTADO DE LA NUEVA TAREA-->
+<div class="input-group mb-3 mt-1 ml-5">
+	<button class="btn btn-primary mr-1" type="button" (click)="nuevaTarea(descripcion.value, estado.value)">Nueva tarea</button>
+	<input type="text" class="form-control mr-2" placeholder="descripcion de la tarea" aria-label="" aria-describedby="basic-addon1" #descripcion>
+	<input type="text" class="form-control mr-5" placeholder="estado" aria-label="" aria-describedby="basic-addon1" #estado>
+</div>
+<!--FIN PARA RECOGGER LA DESCRIPCION DE LA NUEVA TAREA-->
+
+<!--PARA MOSTRAR TODAS LAS TAREAS, EN FORMA DE TARJETAS, RECORRIENDO EL FOR-->
+<div class="card-columns mt-2 ml-5 mr-5">
+	<!--Article es para incluir contenido independiente -->
+	<article class="card w-100" *ngFor="let task of tasks"><!--*ngFor="let task of tasks"-->
+
+		<div class="card-body">
+			<h5 class="card-title">
+				{{task.id}}
+				<a class="btn btn-light ml-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+					{{task.estado}}
+				</a>
+			</h5>
+			<!--Para elegir un estado nuevo y cambiarlo-->
+			<div class="collapse" id="collapseExample">
+				<div class="btn-group mt-2" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn-success active" (click)="cambiarEstadoTarea(task.id, task.descripcion, 'Completada')">Completada</button>
+					<button type="button" class="btn btn-danger" (click)="cambiarEstadoTarea(task.id, task.descripcion, 'Pendiente')">Pendiente</button>
+					<button type="button" class="btn btn-warning" (click)="cambiarEstadoTarea(task.id, task.descripcion, 'InProgress')">InProgress</button>
+				</div>
+			</div>
+			
+			<p class="card-text">{{task.descripcion}}</p>
+
+			<a (click)="borrarTarea(task.id)" class="btn btn-primary">Borrar tarea</a>
+
+			<!-- Modal 
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+				Borrar Tarea
+			</button>
+			<div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Atencion</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							Confirma que quieres borrar la tarea con id {{task.id}}
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+							<a (click)="borrarTarea(task.id)" class="btn btn-primary">Borrar tarea</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			 FIN Modal -->
+		</div>
+			<!--Fin Para elegir un estado nuevo y cambiarlo-->
+	</article>
+
+	<!--
+	<article class="card w-100"><!--*ngFor="let task of tasks"--
+		<div class="card-body">
+			<h5 class="card-title">Card title task.id</h5>
+			<!--Para elegir un estado nuevo y cambiarlo-
+			<div class="dropdown mb-2">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Estado de la tarea (task.Estado)
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" (click)="cambiarEstadoTarea()">Completada</a>
+					<a class="dropdown-item" (click)="cambiarEstadoTarea()">Pendiente</a>
+					<a class="dropdown-item" (click)="cambiarEstadoTarea()">InProgress</a>
+				</div>
+			</div>
+			<!--Fin Para elegir un estado nuevo y cambiarlo
+
+			<p class="card-text">Descripcion de la tarea: Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			<a (click) = "borrarTarea()" class="btn btn-primary">Borrar tarea</a> <!--borrarTarea(task.getId())-
+			<div class="btn-group mt-2" role="group" aria-label="Basic example">
+				<button type="button" class="btn btn-success active" (click)="cambiarEstadoTarea()">Completada</button>
+				<button type="button" class="btn btn-danger" (click)="cambiarEstadoTarea()">Pendiente</button>
+				<button type="button" class="btn btn-warning" (click)="cambiarEstadoTarea()">InProgress</button>
+			</div>
+		</div>
+
+	</article> -->
+</div>
+<!-- FIN PARA MOSTRAR TODAS LAS TAREAS, EN FORMA DE TARJETAS, RECORRIENDO EL FOR-->
+
+<!--
+<ul class="list-group">
+  <li class="list-group-item">Lista de tareas</li> <!--*ngFor="let task of tasks"
+  
+  
+  <li class="list-group-item list-group-item-success">This is a success list group item</li>
+  <li class="list-group-item list-group-item-danger">This is a danger list group item</li>
+  <li class="list-group-item list-group-item-warning">This is a warning list group item</li>
+  <li class="list-group-item list-group-item-info">This is a info list group item</li>
+  <li class="list-group-item list-group-item-light">This is a light list group item</li>
+  <li class="list-group-item list-group-item-dark">This is a dark list group item</li>
+</ul> -->
+
