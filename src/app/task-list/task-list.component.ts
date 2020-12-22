@@ -46,7 +46,12 @@ export class TaskListComponent implements OnInit {
     console.log('Creando una nueva tarea ' + descripcion );
 
     // Cojo de la lista de tareas la ultima, miro su id y lo incremento en una unidad
-    this.idAux = this.tasks[this.tasks.length - 1].id + 1;
+    if (this.tasks.length !== 0){
+      this.idAux = this.tasks[this.tasks.length - 1].id + 1;
+    } else {
+      this.idAux = 1;
+    }
+
 
     // Creo tarea con los parametros y el id generado para que sea el último de la lista
     this.taskAux = {id: this.idAux , descripcion, estado};
