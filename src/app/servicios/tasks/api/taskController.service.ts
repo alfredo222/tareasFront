@@ -27,7 +27,8 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class TaskControllerService {
 
-    protected basePath = 'http://localhost:8080';
+    // protected basePath = 'http://localhost:8080';
+    protected basePath = 'https://azuretareasalfredo.azurewebsites.net';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
