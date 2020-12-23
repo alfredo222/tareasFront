@@ -16,6 +16,7 @@ export class TaskListComponent implements OnInit {
   public tasks: Task[];
   public taskAux: Task;
   public idAux: number;
+  public primeraTareaFlag = 0; // utilizo esta flag para saber si es la primera tarea que se crea
   task: Task = {
     id: 1,
     descripcion: 'Descripcin tarea 1',
@@ -23,6 +24,8 @@ export class TaskListComponent implements OnInit {
   }
   constructor(private taskService: TaskControllerService) {
 
+    this.tasks = [];
+    // this.tasks.push({id: 1, descripcion: 'descr', estado: 'estado'});
    }
 
   ngOnInit() {
@@ -45,13 +48,15 @@ export class TaskListComponent implements OnInit {
   nuevaTarea(descripcion,estado){
     console.log('Creando una nueva tarea ' + descripcion );
 
-    // Cojo de la lista de tareas la ultima, miro su id y lo incremento en una unidad
-    if (this.tasks.length !== 0){
+    // Esta flag me sirve para identificar si el id debe ser 1 o el valor del ultimo+1
+    this.primeraTareaFlag = this.primeraTareaFlag + 1;
+
+    // Cojo de la lista de tareas la ultima, miro su id y lo incremento en una unidad this.tasks.length !== 0
+    if (this.tasks.length !== 0) {
       this.idAux = this.tasks[this.tasks.length - 1].id + 1;
     } else {
       this.idAux = 1;
     }
-
 
     // Creo tarea con los parametros y el id generado para que sea el último de la lista
     this.taskAux = {id: this.idAux , descripcion, estado};

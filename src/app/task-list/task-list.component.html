@@ -19,7 +19,7 @@
 <!--PARA RECOGGER LA DESCRIPCION Y EL ESTADO DE LA NUEVA TAREA-->
 <div class="input-group mb-3 mt-1 ml-5">
 	<button class="btn btn-primary mr-1" type="button" (click)="nuevaTarea(descripcion.value, estado.value)">Nueva tarea</button>
-	<input type="text" class="form-control mr-2" placeholder="descripcion de la tarea" aria-label="" aria-describedby="basic-addon1" #descripcion>
+	<input type="text" class="form-control mr-2" maxlength="250" placeholder="descripcion de la tarea" aria-label="" aria-describedby="basic-addon1" #descripcion>
 	<input type="text" class="form-control mr-5" placeholder="estado" aria-label="" aria-describedby="basic-addon1" #estado>
 </div>
 <!--FIN PARA RECOGGER LA DESCRIPCION DE LA NUEVA TAREA-->
@@ -29,7 +29,7 @@
 	<!--Article es para incluir contenido independiente -->
 	<article class="card w-100" *ngFor="let task of tasks">
 		<!--Body de la tarjeta-->
-		<div class="card-body" *ngIf="tasks.length !=0; else noTask">
+		<div class="card-body"> <!--*ngIf="tasks.length !=0; else noTask" *ngIf="tasks[0].id === 1; else noTask"-->
 			<h5 class="card-title">
 				{{task.id}}
 				<a class="btn btn-light ml-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -57,7 +57,7 @@
 
 		<!--En caso de que no haya tareas que mostrar-->
 		<ng-template #noTask>
-			no hay tareas que mostrar
+			No hay tareas que mostrar
 		</ng-template>
 
 	</article>
